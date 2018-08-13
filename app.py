@@ -11,11 +11,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:/
 app.config['PROPAGATE_EXCEPTIONS'] = True
 
 
-@app.before_first_request
-def create_tables():
-    db.create_all()
-
-
 @app.route('/')
 def my_form():
     return render_template('myform.html', title='Twitter Sentiment Analysis')
@@ -30,6 +25,5 @@ def my_form_post():
 
 
 if __name__ == "__main__":
-    from db import db
-    db.init_app(app)
+
     app.run(debug=True)
