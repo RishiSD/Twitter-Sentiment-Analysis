@@ -1,12 +1,11 @@
 import os
 
 from flask import Flask, request, render_template
-from flask_sqlalchemy import SQLAlchemy
 from data import TwitterMain
 
 app = Flask(__name__)
 
-db = SQLAlchemy(app)
+from db import db
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db')
 app.config['PROPAGATE_EXCEPTIONS'] = True
