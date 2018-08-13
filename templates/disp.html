@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title }}</title>
+</head>
+<body>
+<h1>{{ search_text }}</h1>
+{% for tweet in render_list %}
+<div id ="twitter-tweets">
+{{ tweet|safe }}
+</div>
+{% endfor %}
+</body>
+</html>
