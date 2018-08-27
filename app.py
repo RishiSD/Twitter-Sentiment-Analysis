@@ -13,17 +13,16 @@ app.config['PROPAGATE_EXCEPTIONS'] = True
 
 @app.route('/')
 def my_form():
-    return render_template('myform.html', title='Twitter Sentiment Analysis')
+    return render_template('index.html', title='Twitter Sentiment Analysis')
 
 
 @app.route('/', methods=['POST'])
 def my_form_post():
-    text = request.form['text']
+    text = request.form['hashtag']
     twit_main = TwitterMain()
     tweets = twit_main.get_trends(text)
     return render_template('disp.html', title='Twitter Sentiment Analysis',search_text=text, render_list=tweets)
 
 
 if __name__ == "__main__":
-
     app.run(debug=True)
