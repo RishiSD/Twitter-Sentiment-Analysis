@@ -20,6 +20,9 @@
 	<link rel="stylesheet" type="text/css" href="{{ url_for( 'static', filename='css/util.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ url_for( 'static', filename='css/main.css') }}">
 <!--===============================================================================================-->
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
+	<script src='http://www.chartjs.org/dist/2.7.2/Chart.bundle.js'></script>
+	<script src='http://www.chartjs.org/samples/latest/utils.js'></script>
 </head>
 <body>
 
@@ -30,26 +33,54 @@
 					{{ title }}
 				</span>
 				<br>
-				<div class="container-contact2-form-btn">
-					<div class="wrap-contact2-form-btn">
-						<div class="contact2-form-bgbtn"></div>
-						<a href="{{ url_for('analysis',key=search_key) }}" class="contact2-form-btn" role="button">Analyze</a>
-					</div>
-				</div>
-				<br>
 				<div align="center">
-					<h3>Search results for search key : <i>{{ search_key }}</i></h3>
+					<h3>Tweet Analysis for key : <i>{{ search_key }}</i></h3>
+					<br>				
+					<canvas id="chart-area" width="600" height="400"></canvas>
 					<br>
-					{% for tweet in render_list %}
-					<div id ="twitter-tweets">
-					{{ tweet|safe }}
+					<br>
+					<h4>Want to try analysis on different search key ?</h4>
+					<div class="container-contact2-form-btn">
+						<div class="wrap-contact2-form-btn">
+							<div class="contact2-form-bgbtn"></div>
+							<a href="{{ url_for('my_form') }}" class="contact2-form-btn" role="button">Yes</a>
+						</div>
 					</div>
-					{% endfor %}
+					<script>
+						var config = {
+							type: 'pie',
+							data: {
+								datasets: [{
+									data: {{ data }},
+									backgroundColor: [
+										"#ff5c33",
+										"#66ff66",
+										"#6699ff"
+									],
+									label: 'Sentiment Data'
+								}],
+								labels: [
+									'Negative',
+									'Positive',
+									'Neutral'
+								]
+							},
+							options: {
+								responsive: true
+							}
+						};
+
+						window.onload = function() {
+							var ctx = document.getElementById('chart-area').getContext('2d');
+							window.myPie = new Chart(ctx, config);
+						};
+
+					</script>
 				</div>	
 			</div>
 		</div>
 	</div>
-
+	
 
 
 

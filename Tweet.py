@@ -1,5 +1,6 @@
 from db import db
 from datetime import datetime
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 
 class Tweet(db.Model):
@@ -8,18 +9,18 @@ class Tweet(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     tag = db.Column(db.String())
-    tweet_id = db.Column(db.String())
+    tweet_id = db.Column(db.Integer())
     lang = db.Column(db.String())
     text = db.Column(db.String())
-    html = db.Column(db.String())
+    sentiment = db.Column(db.Float)
     datetime = db.Column(db.String())
 
-    def __init__(self, tag, tweet_id, lang, text, html):
+    def __init__(self, tag, tweet_id, lang, text):
         self.tag = tag
         self.tweet_id = tweet_id
         self.lang = lang
         self.text = text
-        self.html = html
+        self.sentiment = SentimentIntensityAnalyzer().polarity_scores(text)['compound']
         self.datetime = str(datetime.now())
 
     @classmethod
