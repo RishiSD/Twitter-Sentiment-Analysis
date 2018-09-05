@@ -9,7 +9,7 @@ class Tweet(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     tag = db.Column(db.String())
-    tweet_id = db.Column(db.Integer())
+    tweet_id = db.Column(db.String())
     lang = db.Column(db.String())
     text = db.Column(db.String())
     sentiment = db.Column(db.Float)

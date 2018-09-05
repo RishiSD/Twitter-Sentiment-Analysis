@@ -18,12 +18,12 @@ class TwitterMain:
         
         tt_buff = list()
         for t in tweepy.Cursor(self.api.search, q = text_query + ' -filter:retweets' , lang='en').items(count):
-            tweet = Tweet(text_query, t.id, t._json["lang"], t._json["text"])
+            tweet = Tweet(text_query, str(t.id), t._json["lang"], t._json["text"])
             tt_buff.append(tweet)
 
         Tweet.save_all_to_db(tt_buff)
 
-        return [self.get_tweet_html(t.tweet_id) for t in tt_buff[:10]]
+        return [self.get_tweet_html(int(t.tweet_id)) for t in tt_buff[:10]]
 
     @classmethod			
     def get_analysis_data(cls, text_query):
